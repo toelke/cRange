@@ -1,4 +1,4 @@
 Installation
 ============
 
-This needs http://www.dabeaz.com/ply/
+This needs [ply](http://www.dabeaz.com/ply/)
