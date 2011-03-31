@@ -15,8 +15,8 @@ def range_minus(l, r):
 	return (mi, ma, 0)
 
 def range_plus(l, r):
-	ma = l[0] + r[1]
-	mi = l[1] + r[0]
+	ma = l[0] + r[0]
+	mi = l[1] + r[1]
 	
 	if ma < mi:
 		(ma, mi) = (mi, ma)
