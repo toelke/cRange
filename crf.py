@@ -149,7 +149,9 @@ def p_error(t):
 import ply.yacc as yacc
 yacc.yacc()
 
-print yacc.parse("""
+import sys
+if len(sys.argv) == 1:
+	program = """
 int x; /*[0-65535]*/
 int y; /*[0-65535]*/
 int z;
@@ -157,7 +159,11 @@ int z;
 z = x << 10;
 y *= 2;
 z += y;
-""")
+"""
+else:
+	program = open(sys.argv[1]).read()
+
+print yacc.parse(program)
 
 for name, range in maxnames.items():
 	import math
