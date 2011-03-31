@@ -33,7 +33,6 @@ def range_mul(l, r):
 
 def range_div(l, r):
 	table = [x/y for x in l[:2] for y in r[:2] if y != 0]
-	print l, r, table
 
 	if len(table) < 1:
 		return (0, 0, 0)
