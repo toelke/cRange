@@ -59,7 +59,7 @@ def p_assignment(t):
 	else:
 		maxnames[t[1]] = t[3][1]
 
-	t[0] = "%s = %s; /*[%d-%d|%d]*/\n" % ((t[1], t[3][0]) + t[3][1])
+	t[0] = "%s = %s; /*{%d-%d|%d}*/\n" % ((t[1], t[3][0]) + t[3][1])
 
 def p_assignment_c(t):
 	'''assignment : NAME PLUSEQ expression SEMICOLON
@@ -90,7 +90,7 @@ def p_assignment_c(t):
 	else:
 		maxnames[t[1]] = out
 
-	t[0] = "%s %s %s; /*[%d-%d|%d]*/\n" % ((t[1], t[2], t[3][0]) + out)
+	t[0] = "%s %s %s; /*{%d-%d|%d}*/\n" % ((t[1], t[2], t[3][0]) + out)
 
 def p_expression_plus(t):
 	'expression : expression PLUS expression'
@@ -163,8 +163,10 @@ z += y;
 else:
 	program = open(sys.argv[1]).read()
 
+print "/* Begin of range analysis */"
 print yacc.parse(program)
 
+print "/* Ranges: "
 for name, range in maxnames.items():
 	import math
 	lmin = abs(range[0])
@@ -174,3 +176,5 @@ for name, range in maxnames.items():
 	if lmax != 0:
 		lmax = (math.log(lmax, 2) + 1)
 	print "%s\t: %15d to %15d, width: %d" % (name, range[0], range[1], max(lmin, lmax))
+
+print " */"
